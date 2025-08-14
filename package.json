@@ -1,0 +1,22 @@
+{
+  "name": "scoutnet-cache",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file .env --watch src/index.ts",
+    "start": "node --env-file .env src/index.ts"
+  },
+  "dependencies": {
+    "@hono/arktype-validator": "^2.0.1",
+    "@hono/node-server": "^1.18.2",
+    "@scalar/hono-api-reference": "^0.9.13",
+    "@scouterna/scoutnet": "^0.3.13",
+    "arktype": "^2.1.20",
+    "hono": "^4.9.1",
+    "hono-openapi": "^0.4.8"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.0",
+    "@types/node": "^24.2.1",
+    "typescript": "^5.9.2"
+  }
+}

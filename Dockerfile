@@ -7,6 +7,7 @@ FROM node:${NODE_VERSION}-alpine
 ENV NODE_ENV=production
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+ENV PORT=80
 
 RUN corepack enable
 
@@ -28,7 +29,7 @@ USER node
 COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 3000
+EXPOSE 80
 
 # Run the application.
 CMD ["node", "src/index.ts"]

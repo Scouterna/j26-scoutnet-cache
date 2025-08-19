@@ -15,6 +15,7 @@ app
 		Scalar({
 			theme: 'saturn',
 			url: '/openapi',
+			hideClientButton: true,
 		}),
 	)
 	.get(

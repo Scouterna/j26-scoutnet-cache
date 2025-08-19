@@ -3,6 +3,7 @@ import { getHtmlDocument } from '@scalar/core/libs/html-rendering';
 
 const doc = getHtmlDocument({
 	url: './openapi.json',
+	hideClientButton: true,
 });
 
 await mkdir('docs-out', { recursive: true });

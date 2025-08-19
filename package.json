@@ -2,9 +2,7 @@
 	"name": "scoutnet-cache",
 	"type": "module",
 	"license": "MIT",
-	"engines": {
-		"pnpm": ">=10"
-	},
+	"packageManager": "pnpm@10.11.0",
 	"scripts": {
 		"dev": "node --env-file .env --watch src/index.ts",
 		"start": "node --env-file .env src/index.ts",

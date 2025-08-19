@@ -10,8 +10,8 @@
 This server acts as a middleman between applications and Scoutnet. It:
 - Reformats responses from Scoutnet to make them easier to work with. For
   example, it makes HUB sections appear as real groups.
-- Provides an OpenAPI document on `/openapi` for better type safety.
-- Provides human-readable API documentation on `/docs`.
+- Provides an OpenAPI document on `/openapi` for better type safety (also available at https://scouterna.github.io/j26-scoutnet-cache/openapi.json).
+- Provides human-readable API documentation on `/docs` (also available at https://scouterna.github.io/j26-scoutnet-cache).
 - Caches responses to easen the burden on Scoutnet.
 
 It _does not_ have any form of authorization built in. If a system can access

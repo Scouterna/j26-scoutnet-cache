@@ -9,7 +9,7 @@
 
 This server acts as a middleman between applications and Scoutnet. It:
 - Reformats responses from Scoutnet to make them easier to work with. For
-  example, it makes sections look like real groups.
+  example, it makes HUB sections appear as real groups.
 - Provides an OpenAPI document on `/openapi` for better type safety.
 - Provides human-readable API documentation on `/docs`.
 - Caches responses to easen the burden on Scoutnet.

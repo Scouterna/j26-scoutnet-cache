@@ -1,12 +1,10 @@
 import './arktypeConfig.ts';
 
 import { Scalar } from '@scalar/hono-api-reference';
+
 import { Hono } from 'hono';
 import { openAPISpecs } from 'hono-openapi';
 import groups from './resources/groups/routes.ts';
-
-// Import config to ensure environment variables are set
-import './config.ts';
 
 const app = new Hono();
 
@@ -38,7 +36,7 @@ app
 		}),
 	);
 
-const routes = app.route('/groups', groups);
+export const routes = app.route('/groups', groups);
 
 export default app;
 export type AppType = typeof routes;

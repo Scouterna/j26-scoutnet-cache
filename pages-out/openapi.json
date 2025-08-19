@@ -1,0 +1,122 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Hono Documentation",
+    "description": "Development documentation",
+    "version": "0.0.0"
+  },
+  "paths": {
+    "/groups": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "List of groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "belongsToGroup": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            ]
+                          },
+                          "troops": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "name",
+                                "type"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "types": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "belongsToGroup",
+                          "id",
+                          "name",
+                          "troops",
+                          "types"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "lastFetchedAt": {
+                      "type": "string"
+                    },
+                    "nextFetchAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "groups",
+                    "lastFetchedAt",
+                    "nextFetchAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getGroups",
+        "parameters": [],
+        "description": "Get all groups from cache. If the cache is empty, it will fetch the groups from the Scoutnet API."
+      }
+    },
+    "/groups/refresh": {
+      "post": {
+        "responses": {
+          "204": {
+            "description": "Groups cache refreshed successfully"
+          }
+        },
+        "operationId": "postGroupsRefresh",
+        "parameters": [],
+        "description": "Force refresh the groups cache by fetching from the Scoutnet API."
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

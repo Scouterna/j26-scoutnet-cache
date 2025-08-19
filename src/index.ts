@@ -1,7 +1,11 @@
 import { serve } from '@hono/node-server';
 import app from './app.ts';
 
-const port = process.env.PORT ? Number.parseInt(process.env.PORT, 10) : 3000;
+import config, { loadConfig } from './config.ts';
+
+loadConfig();
+
+const port = config.PORT ?? 3000;
 
 serve(
 	{

@@ -1,11 +1,7 @@
 import { createAuthorizationHeader } from '@scouterna/scoutnet';
 import config from '../../config.ts';
 import { scoutnet } from '../../scoutnet.ts';
-import {
-	groupTypeByNumber,
-	groupTypeByString,
-	troopTypeByNumber,
-} from './constants.ts';
+import { parseAndFilterGroupTypes, parseTroopType } from './scoutnetEnums.ts';
 import type { GroupOrSection } from './types.ts';
 
 let groups: GroupOrSection[] = [];
@@ -42,7 +38,8 @@ async function refreshCache() {
 	groups = [];
 
 	for (const group of allGroups) {
-		const isHub = group.group_types?.includes(groupTypeByString.hub);
+		const groupTypes = parseAndFilterGroupTypes(group.group_types ?? []);
+		const isHub = groupTypes.includes('hub');
 
 		// In the case of a hub, account for sections. Otherwise pretend they're not there.
 		const sections = isHub ? Object.values(group.sections ?? {}) : [];
@@ -58,14 +55,12 @@ async function refreshCache() {
 		groups.push({
 			id: `group:${group.group_no}`,
 			name: group.name ?? null,
-			types:
-				group.group_types?.map((type) => groupTypeByNumber[type] ?? 'other') ??
-				[],
+			types: groupTypes,
 			belongsToGroup: null,
 			troops: troopsWithoutSections.map(([id, troop]) => ({
 				id,
 				name: troop.name,
-				type: troopTypeByNumber[troop.type] ?? 'other',
+				type: parseTroopType(troop.type) ?? 'other',
 			})),
 		});
 
@@ -74,16 +69,18 @@ async function refreshCache() {
 			const sectionTroops = troops.filter(
 				([_, troop]) => troop.section_id === section.id,
 			);
+			// Give the section the same types as the group, but exclude 'hub'
+			const sectionTypes = groupTypes.filter((type) => type !== 'hub');
 
 			groups.push({
 				id: `section:${section.id}`,
 				name: section.name,
 				belongsToGroup: `group:${group.group_no}`,
-				types: [],
+				types: sectionTypes,
 				troops: sectionTroops.map(([id, troop]) => ({
 					id,
 					name: troop.name,
-					type: troopTypeByNumber[troop.type] ?? 'other',
+					type: parseTroopType(troop.type) ?? 'other',
 				})),
 			});
 		}
